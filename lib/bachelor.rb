@@ -50,9 +50,40 @@ def count_contestants_by_hometown(data, hometown)
 end
 
 def get_occupation(data, hometown)
-  # code here
+  data.collect { |season_name, contestant_array|
+    contestant_array.collect { |contestant_object|
+      contestant_object.collect { |categories, category_data|
+        if category_data == hometown
+          contestant_object.find { |categories2, category_data2|
+            if categories2 == 'occupation'
+              return category_data2
+            end
+          }
+        end
+      }
+    }
+  }
 end
 
 def get_average_age_for_season(data, season)
-  # code here
+  age_array = []
+  summed_age = 0
+
+  data.collect { |season_name, contestant_array|
+    if season_name.to_s == season
+      contestant_array.collect { |contestant_object|
+        contestant_object.collect { |categories, category_data|
+          if categories = 'age'
+            if category_data.to_i > 0
+              age_array << category_data.to_i
+            end
+          end
+        }
+      }
+    end
+  }
+  age_array.collect { |number|
+    summed_age += number
+  }
+  (summed_age / age_array.length).ceil
 end
