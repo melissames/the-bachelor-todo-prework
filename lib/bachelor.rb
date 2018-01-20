@@ -85,7 +85,6 @@ def get_average_age_for_season(data, season)
   age_array.collect { |number|
     summed_age += number
   }
-  binding.pry
-  summed_age / age_array.length
+  (summed_age / age_array.length).to_f.ceil
 
 end
